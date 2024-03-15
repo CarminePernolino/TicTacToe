@@ -83,4 +83,5 @@ public class Menu {
         board.setCell(inputMove, gamePlayer);
 
     }
+
 }
