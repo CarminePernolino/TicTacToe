@@ -1,13 +1,20 @@
 package org.example.gui;
 
 import org.example.backend.Board;
+import org.example.backend.Player;
+import org.example.backend.PlayersManager;
+
+import java.util.Scanner;
 
 public class Menu {
+    PlayersManager playersManager;
     Board board;
 
     public Menu() {
+        this.playersManager = new PlayersManager();
         this.board = new Board();
         this.printBoard();
+        this.inputNameScanner();
     }
 
     private void printBoard() {
@@ -32,5 +39,13 @@ public class Menu {
         }
     }
 
+    private void inputNameScanner() {
+        Scanner nameOne = new Scanner(System.in);
+        System.out.print("Enter Player 1 name: ");
+        playersManager.setPlayerOneName(nameOne);
 
+        Scanner nameTwo = new Scanner(System.in);
+        System.out.print("Enter Player 2 name: ");
+        playersManager.setPlayerTwoName(nameTwo);
+    }
 }
