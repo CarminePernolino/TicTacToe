@@ -21,4 +21,8 @@ public class PlayersManager {
         playerTwo = new Player(nameTwo.nextLine(), 'X', 0);
         playersList.add(playerTwo);
     }
+
+    public Player getPlayer(int index) {
+        return playersList.get(index);
+    }
 }

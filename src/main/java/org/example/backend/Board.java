@@ -14,4 +14,8 @@ public class Board {
             }
         }
     }
+
+    public int getValueCell(int i, int j) {
+        return board[i][j];
+    }
 }
