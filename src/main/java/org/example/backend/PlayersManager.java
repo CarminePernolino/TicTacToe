@@ -1,8 +1,11 @@
 package org.example.backend;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
+@Getter
 public class PlayersManager {
     Player playerOne;
     Player playerTwo;
@@ -18,7 +21,7 @@ public class PlayersManager {
     }
 
     public void setPlayerTwoName(Scanner nameTwo) {
-        playerTwo = new Player(nameTwo.nextLine(), 'X', 0);
+        playerTwo = new Player(nameTwo.nextLine(), '0', 0);
         playersList.add(playerTwo);
     }
 

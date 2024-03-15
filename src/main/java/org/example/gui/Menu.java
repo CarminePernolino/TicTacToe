@@ -1,12 +1,14 @@
 package org.example.gui;
 
 import org.example.backend.Board;
+import org.example.backend.Player;
 import org.example.backend.PlayersManager;
 
 import java.util.Scanner;
 
 public class Menu {
     PlayersManager playersManager;
+    Player gamePlayer;
     Board board;
 
     public Menu() {
@@ -14,13 +16,26 @@ public class Menu {
         this.board = new Board();
         this.inputNameScanner();
 
+        int turn = 0;
+
         while(playersManager.getPlayer(0).getWin() == 0 || playersManager.getPlayer(1).getWin() == 0) {
-            this.printBoard();
+
+            if(turn >= playersManager.getPlayersList().size()) {
+                turn = 0;
+                gamePlayer = playersManager.getPlayer(turn);
+            } else
+                gamePlayer = playersManager.getPlayer(turn);
+
+            this.printBoard(gamePlayer);
+
+            turn++;
         }
     }
 
-    private void printBoard() {
+    private void printBoard(Player player) {
         int contCell = 1;
+
+        System.out.println("Player round: " + player.getName());
 
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
@@ -57,5 +72,11 @@ public class Menu {
         Scanner nameTwo = new Scanner(System.in);
         System.out.print("Enter Player 2 name: ");
         playersManager.setPlayerTwoName(nameTwo);
+    }
+
+    private void inputPlayerMove() {
+        Scanner playerMove = new Scanner(System.in);
+        System.out.print("Enter the value of the chosen box: ");
+
     }
 }
