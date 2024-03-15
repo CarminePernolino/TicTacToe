@@ -27,6 +27,7 @@ public class Menu {
                 gamePlayer = playersManager.getPlayer(turn);
 
             this.printBoard(gamePlayer);
+            this.inputPlayerMove(gamePlayer);
 
             turn++;
         }
@@ -74,9 +75,12 @@ public class Menu {
         playersManager.setPlayerTwoName(nameTwo);
     }
 
-    private void inputPlayerMove() {
+    private void inputPlayerMove(Player gamePlayer) {
         Scanner playerMove = new Scanner(System.in);
         System.out.print("Enter the value of the chosen box: ");
+        int inputMove = playerMove.nextInt();
+
+        board.setCell(inputMove, gamePlayer);
 
     }
 }

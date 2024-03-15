@@ -16,12 +16,12 @@ public class PlayersManager {
     }
 
     public void setPlayerOneName(Scanner nameOne) {
-        playerOne = new Player(nameOne.nextLine(), 'X', 0);
+        playerOne = new Player(nameOne.nextLine(), 'X', 1, 0);
         playersList.add(playerOne);
     }
 
     public void setPlayerTwoName(Scanner nameTwo) {
-        playerTwo = new Player(nameTwo.nextLine(), '0', 0);
+        playerTwo = new Player(nameTwo.nextLine(), '0', 2, 0);
         playersList.add(playerTwo);
     }
 
