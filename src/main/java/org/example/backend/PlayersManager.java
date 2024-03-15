@@ -15,13 +15,13 @@ public class PlayersManager {
         playersList = new ArrayList<>();
     }
 
-    public void setPlayerOneName(Scanner nameOne) {
-        playerOne = new Player(nameOne.nextLine(), 'X', 1, 0);
+    public void setPlayerOneName(String nameOne) {
+        playerOne = new Player(nameOne, 'X', 1, 0);
         playersList.add(playerOne);
     }
 
-    public void setPlayerTwoName(Scanner nameTwo) {
-        playerTwo = new Player(nameTwo.nextLine(), '0', 2, 0);
+    public void setPlayerTwoName(String nameTwo) {
+        playerTwo = new Player(nameTwo, '0', 2, 0);
         playersList.add(playerTwo);
     }
 

@@ -3,6 +3,9 @@ package org.example.gui;
 import org.example.backend.Board;
 import org.example.backend.Player;
 import org.example.backend.PlayersManager;
+import org.example.exceptions.CellValueExpection;
+import org.example.exceptions.EmptyNameException;
+import org.example.exceptions.OutOfRangeNumberException;
 
 import java.util.Scanner;
 
@@ -10,11 +13,21 @@ public class Menu {
     PlayersManager playersManager;
     Player gamePlayer;
     Board board;
+    boolean cicle = true;
 
     public Menu() {
         this.playersManager = new PlayersManager();
         this.board = new Board();
-        this.inputNameScanner();
+
+        while(cicle) {
+            try {
+                this.inputNameScanner();
+                cicle = false;
+            } catch (EmptyNameException e) {
+                System.out.println("! The name is empty !");
+                System.out.println("! Try Again !");
+            }
+        }
 
         int turn = 0;
 
@@ -27,9 +40,16 @@ public class Menu {
                 gamePlayer = playersManager.getPlayer(turn);
 
             this.printBoard(gamePlayer);
-            this.inputPlayerMove(gamePlayer);
-
-            turn++;
+            try {
+                this.inputPlayerMove(gamePlayer);
+                turn++;
+            } catch (OutOfRangeNumberException e) {
+                System.out.println("\n! Insert a number between 1 and 9 !");
+                System.out.println("! Try Again !");
+            } catch (CellValueExpection e) {
+                System.out.println("! You cannot overwrite the cell value !");
+                System.out.println("! Try again !");
+            }
         }
 
         System.out.println(gamePlayer.getName() + " win the game!");
@@ -67,22 +87,37 @@ public class Menu {
         }
     }
 
-    private void inputNameScanner() {
-        Scanner nameOne = new Scanner(System.in);
-        System.out.print("Enter Player 1 name: ");
-        playersManager.setPlayerOneName(nameOne);
+    private void inputNameScanner() throws EmptyNameException {
+        if(playersManager.getPlayerOne()==null) {
+            Scanner nameOne = new Scanner(System.in);
+            System.out.print("Enter Player 1 name: ");
+            String namePlayerOne = nameOne.nextLine();
+
+            if (namePlayerOne.isEmpty())
+                throw new EmptyNameException();
+
+            playersManager.setPlayerOneName(namePlayerOne);
+        }
 
         Scanner nameTwo = new Scanner(System.in);
         System.out.print("Enter Player 2 name: ");
-        playersManager.setPlayerTwoName(nameTwo);
+        String namePlayerTwo = nameTwo.nextLine();
+
+        if (namePlayerTwo.isEmpty())
+            throw new EmptyNameException();
+
+        playersManager.setPlayerTwoName(namePlayerTwo);
     }
 
-    private void inputPlayerMove(Player gamePlayer) {
+    private void inputPlayerMove(Player gamePlayer) throws OutOfRangeNumberException, CellValueExpection {
         Scanner playerMove = new Scanner(System.in);
         System.out.print("\nEnter the value of the chosen box: ");
-        int inputMove = playerMove.nextInt();
+        String playerFinalMove = playerMove.nextLine();
 
-        board.setCell(inputMove, gamePlayer);
+        if(playerFinalMove.isEmpty() || !playerFinalMove.matches("[1-9]+") || Integer.parseInt(playerFinalMove)<1
+        || Integer.parseInt(playerFinalMove)>9)
+            throw new OutOfRangeNumberException();
+
+        board.setCell(Integer.parseInt(playerFinalMove), gamePlayer);
     }
-
 }

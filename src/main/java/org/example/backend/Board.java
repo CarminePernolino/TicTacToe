@@ -1,5 +1,7 @@
 package org.example.backend;
 
+import org.example.exceptions.CellValueExpection;
+
 public class Board {
     private int board[][] = new int[3][3];
 
@@ -19,7 +21,7 @@ public class Board {
         return board[i][j];
     }
 
-    public void setCell(int inputMove, Player player) {
+    public void setCell(int inputMove, Player player) throws CellValueExpection {
         int i = 0;
 
         while(inputMove > 3) {
@@ -27,7 +29,11 @@ public class Board {
             i++;
         }
 
+        if(board[i][inputMove-1] != -1)
+            throw new CellValueExpection();
+
         board[i][inputMove-1] = player.getValue();
+
         this.checkWin(player,i,inputMove-1);
     }
     public void checkWin(Player player, int i, int j) {
