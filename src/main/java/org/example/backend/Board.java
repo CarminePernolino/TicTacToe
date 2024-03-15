@@ -28,5 +28,32 @@ public class Board {
         }
 
         board[i][inputMove-1] = player.getValue();
+        this.checkWin(player,i,inputMove-1);
+    }
+    public void checkWin(Player player, int i, int j) {
+        if( Math.abs(i-j)!=1 && board[1][1]== player.getValue() && (board[0][0]== player.getValue()
+                && board[2][2]== player.getValue() || board[2][0]== player.getValue()
+                && board[0][2]== player.getValue()))
+            player.setWin(1);
+
+        int count=0;
+
+        for(int x=0; x<3;x++){
+            if(board[i][x]==player.getValue())
+                count++;
+        }
+
+        if(count==3)
+            player.setWin(1);
+
+        count=0;
+
+        for(int x=0; x<3;x++){
+            if(board[x][j]==player.getValue())
+                count++;
+        }
+
+        if(count==3)
+            player.setWin(1);
     }
 }

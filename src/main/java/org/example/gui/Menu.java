@@ -18,7 +18,7 @@ public class Menu {
 
         int turn = 0;
 
-        while(playersManager.getPlayer(0).getWin() == 0 || playersManager.getPlayer(1).getWin() == 0) {
+        while(playersManager.getPlayer(0).getWin() == 0 && playersManager.getPlayer(1).getWin() == 0) {
 
             if(turn >= playersManager.getPlayersList().size()) {
                 turn = 0;
@@ -31,12 +31,14 @@ public class Menu {
 
             turn++;
         }
+
+        System.out.println(gamePlayer.getName() + " win the game!");
     }
 
     private void printBoard(Player player) {
         int contCell = 1;
 
-        System.out.println("Player round: " + player.getName());
+        System.out.println("\nPlayer round: " + player.getName());
 
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
@@ -77,11 +79,10 @@ public class Menu {
 
     private void inputPlayerMove(Player gamePlayer) {
         Scanner playerMove = new Scanner(System.in);
-        System.out.print("Enter the value of the chosen box: ");
+        System.out.print("\nEnter the value of the chosen box: ");
         int inputMove = playerMove.nextInt();
 
         board.setCell(inputMove, gamePlayer);
-
     }
 
 }
