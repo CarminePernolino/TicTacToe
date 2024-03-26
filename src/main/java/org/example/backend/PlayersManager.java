@@ -7,15 +7,15 @@ import java.util.Scanner;
 
 @Getter
 public class PlayersManager {
-    Player playerOne;
-    Player playerTwo;
-    ArrayList<Player> playersList;
+    private Player playerOne;
+    private Player playerTwo;
+    private ArrayList<Player> playersList;
 
     public PlayersManager() {
         playersList = new ArrayList<>();
     }
 
-    public void setPlayerOneName(String nameOne) {
+    public final void setPlayerOneName(String nameOne) {
         playerOne = new Player(nameOne, 'X', 1, 0);
         playersList.add(playerOne);
     }
