@@ -1,4 +1,4 @@
 package org.example.exceptions;
 
-public class EmptyNameException extends Exception{
+public class EmptyNameException extends Exception {
 }

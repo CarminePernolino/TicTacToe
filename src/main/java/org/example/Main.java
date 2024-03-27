@@ -2,8 +2,14 @@ package org.example;
 
 import org.example.gui.Menu;
 
-public class Main {
-    public static void main(String[] args) {
+public final class Main {
+    /**
+     * Classe di inizializzazione.
+     * @param args
+     */
+    public static void main(final String[] args) {
         Menu menu = new Menu();
     }
+
+    private Main() { }
 }

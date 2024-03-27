@@ -1,4 +1,4 @@
 package org.example.exceptions;
 
-public class OutOfRangeNumberException extends Exception{
+public class OutOfRangeNumberException extends Exception {
 }

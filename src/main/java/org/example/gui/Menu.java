@@ -9,17 +9,42 @@ import org.example.exceptions.OutOfRangeNumberException;
 
 import java.util.Scanner;
 
-public class Menu {
-    PlayersManager playersManager;
-    Player gamePlayer;
-    Board board;
-    boolean cicle = true;
 
+
+public class Menu {
+    /**
+     * PlayesManager.
+     */
+    private PlayersManager playersManager;
+    /**
+     * GamePlayer.
+     */
+    private Player gamePlayer;
+    /**
+     * Board.
+     */
+    private Board board;
+    /**
+     * Ciclo.
+     */
+    private  boolean cicle = true;
+    /**
+     * Number 3.
+     */
+    private static final int THREE = 3;
+    /**
+     * Number 9.
+     */
+    private static final int NINE = 9;
+
+    /**
+     * Classe Menu.
+     */
     public Menu() {
         this.playersManager = new PlayersManager();
         this.board = new Board();
 
-        while(cicle) {
+        while (cicle) {
             try {
                 this.inputNameScanner();
                 cicle = false;
@@ -31,13 +56,15 @@ public class Menu {
 
         int turn = 0;
 
-        while(playersManager.getPlayer(0).getWin() == 0 && playersManager.getPlayer(1).getWin() == 0) {
+        while (playersManager.getPlayer(0).getWin() == 0
+                && playersManager.getPlayer(1).getWin() == 0) {
 
-            if(turn >= playersManager.getPlayersList().size()) {
+            if (turn >= playersManager.getPlayersList().size()) {
                 turn = 0;
                 gamePlayer = playersManager.getPlayer(turn);
-            } else
+            } else {
                 gamePlayer = playersManager.getPlayer(turn);
+            }
 
             this.printBoard(gamePlayer);
             try {
@@ -55,30 +82,36 @@ public class Menu {
         System.out.println(gamePlayer.getName() + " win the game!");
     }
 
-    private void printBoard(Player player) {
+    private void printBoard(final Player player) {
         int contCell = 1;
 
         System.out.println("\nPlayer round: " + player.getName());
 
-        for(int i = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
+        for (int i = 0; i < THREE; i++) {
+            for (int j = 0; j < THREE; j++) {
 
-                if(board.getValueCell(i,j) == -1)
+                if (board.getValueCell(i, j) == -1) {
                     System.out.print("[" + "-" + "]");
+                }
 
-                if(board.getValueCell(i,j) == 1)
-                    System.out.print("[" + playersManager.getPlayer(0).getIcon() + "]");
+                if (board.getValueCell(i, j) == 1) {
+                    System.out.print("[" + playersManager.getPlayer(0)
+                            .getIcon() + "]");
+                }
 
-                if(board.getValueCell(i,j) == 2)
-                    System.out.print("[" + playersManager.getPlayer(1).getIcon() + "]");
+                if (board.getValueCell(i, j) == 2) {
+                    System.out.print("[" + playersManager.getPlayer(1)
+                            .getIcon() + "]");
+                }
             }
 
-            if(i == 1)
+            if (i == 1) {
                 System.out.print("     ->     ");
-            else
+            } else {
                 System.out.print("            ");
+            }
 
-            for(int j = 0; j < 3; j++) {
+            for (int j = 0; j < THREE; j++) {
                 System.out.print("[" + contCell + "]");
                 contCell++;
             }
@@ -88,13 +121,14 @@ public class Menu {
     }
 
     private void inputNameScanner() throws EmptyNameException {
-        if(playersManager.getPlayerOne()==null) {
+        if (playersManager.getPlayerOne() == null) {
             Scanner nameOne = new Scanner(System.in);
             System.out.print("Enter Player 1 name: ");
             String namePlayerOne = nameOne.nextLine();
 
-            if (namePlayerOne.isEmpty())
+            if (namePlayerOne.isEmpty()) {
                 throw new EmptyNameException();
+            }
 
             playersManager.setPlayerOneName(namePlayerOne);
         }
@@ -103,21 +137,25 @@ public class Menu {
         System.out.print("Enter Player 2 name: ");
         String namePlayerTwo = nameTwo.nextLine();
 
-        if (namePlayerTwo.isEmpty())
+        if (namePlayerTwo.isEmpty()) {
             throw new EmptyNameException();
+        }
 
         playersManager.setPlayerTwoName(namePlayerTwo);
     }
 
-    private void inputPlayerMove(Player gamePlayer) throws OutOfRangeNumberException, CellValueExpection {
+    private void inputPlayerMove(final Player player) throws
+            OutOfRangeNumberException, CellValueExpection {
         Scanner playerMove = new Scanner(System.in);
         System.out.print("\nEnter the value of the chosen box: ");
         String playerFinalMove = playerMove.nextLine();
 
-        if(playerFinalMove.isEmpty() || !playerFinalMove.matches("[1-9]+") || Integer.parseInt(playerFinalMove)<1
-        || Integer.parseInt(playerFinalMove)>9)
+        if (playerFinalMove.isEmpty() || !playerFinalMove.matches("[1-9]+")
+                || Integer.parseInt(playerFinalMove) < 1
+                || Integer.parseInt(playerFinalMove) > NINE) {
             throw new OutOfRangeNumberException();
+        }
 
-        board.setCell(Integer.parseInt(playerFinalMove), gamePlayer);
+        board.setCell(Integer.parseInt(playerFinalMove), player);
     }
 }
